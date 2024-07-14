@@ -1,6 +1,7 @@
 import { AuthenticationError } from "apollo-server";
 import jwt from "jsonwebtoken";
 
+
 const authorize = (context) => {
   const authHeader = context.req.headers.authorization;
   if (authHeader) {
@@ -19,4 +20,19 @@ const authorize = (context) => {
   throw new Error("Authorization header must be provided");
 };
 
-export default authorize;
+const generateToken = (user) => {
+
+  const SECRET_KEY = process.env.SECRET_KEY || "abc123"
+
+  return jwt.sign(
+    {
+      id: user.id,
+      email: user.email,
+      username: user.username,
+    }, 
+    SECRET_KEY,
+    { expiresIn: "1h" }
+  );
+};
+
+export { authorize, generateToken };

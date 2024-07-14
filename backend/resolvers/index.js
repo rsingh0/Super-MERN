@@ -1,4 +1,5 @@
 import books from "./book.js";
+import user from "./user.js";
 
 const resolvers = {
   Query: {
@@ -6,6 +7,7 @@ const resolvers = {
   },
   Mutation: {
     ...books.Mutations,
+    ...user.Mutations,
   },
 };
 

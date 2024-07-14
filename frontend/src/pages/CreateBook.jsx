@@ -47,7 +47,7 @@ const CreateBook = () => {
         result.data.createBook.id
       ) {
         enqueueSnackbar("Book Created successfully", { variant: "success" });
-        navigate("/");
+        navigate("/home");
       } else {
         enqueueSnackbar("Error", { variant: "error" });
       }

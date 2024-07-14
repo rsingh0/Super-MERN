@@ -71,7 +71,7 @@ const EditBook = () => {
         result.data.updateBook.id
       ) {
         enqueueSnackbar("Book Updated successfully", { variant: "success" });
-        navigate("/");
+        navigate("/home");
       } else {
         enqueueSnackbar("Error while updating book", { variant: "error" });
       }

@@ -1,5 +1,5 @@
-import Book from "../models/book.js";
-import authorize from "../utils.js/check-auth.js";
+import Book from "../models/Book.js";
+import { authorize } from "../utils/check-auth.js";
 import { AuthenticationError, UserInputError } from "apollo-server";
 
 // @desc Fetch all Books
@@ -36,12 +36,12 @@ const getBook = async (bookId) => {
 // @access private
 const createBook = async (input, context) => {
   // Book should only be created by authorized users
-  // const user = authorize(context);
-  // console.log("Authorized User:", user);
+  const user = authorize(context);
+  console.log("Authorized User:", user);
 
-  // if(!user){
-  //   throw new AuthenticationError("Invalid User");
-  // }
+  if (!user) {
+    throw new AuthenticationError("Invalid User");
+  }
   console.log("Create Book Input", input);
   if (!input) {
     throw new UserInputError("Book input cannot be empty");
@@ -60,16 +60,16 @@ const createBook = async (input, context) => {
   return await newBook.save();
 };
 
-// @desc Update Book by id
+// @desc Update Book
 // @access private
 const updateBook = async (id, book, context) => {
-  // Book should only be created by authorized users
-  // const user = authorize(context);
-  // console.log("Authorized User:", user);
+  // Book should only be updated by authorized users
+  const user = authorize(context);
+  console.log("Authorized User:", user);
 
-  // if(!user){
-  //   throw new AuthenticationError("Invalid User");
-  // }
+  if (!user) {
+    throw new AuthenticationError("Invalid User");
+  }
   console.log("Update Book Input", book, id);
   if (!book && !id) {
     throw new UserInputError("Book input or bookId cannot be empty");
@@ -92,16 +92,16 @@ const updateBook = async (id, book, context) => {
   return { ...updatedBook._doc, ...updatedId, ...book };
 };
 
-// @desc Delete Book by id
+// @desc Delete Book
 // @access private
 const deleteBook = async (id, context) => {
   // Book should only be deleted by authorized users
-  // const user = authorize(context);
-  // console.log("Authorized User:", user);
+  const user = authorize(context);
+  console.log("Authorized User:", user);
 
-  // if(!user){
-  //   throw new AuthenticationError("Invalid User");
-  // }
+  if (!user) {
+    throw new AuthenticationError("Invalid User");
+  }
 
   try {
     const result = await Book.findByIdAndDelete(id);

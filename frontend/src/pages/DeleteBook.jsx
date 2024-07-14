@@ -21,7 +21,7 @@ const DeleteBook = () => {
 
       if (result && result.data && result.data.deleteBook) {
         enqueueSnackbar(result.data.deleteBook, { variant: "success" });
-        navigate("/");
+        navigate("/home");
       } else {
         enqueueSnackbar("Error Occured while deleting book", {
           variant: "error",
